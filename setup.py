@@ -130,8 +130,8 @@ def main():
         [
             r"python/cv2/.*config.*.py"
         ]
-        +
-        [ r"python/cv2/py.typed" ] if sys.version_info >= (3, 6) else []
+        # +
+        # [ r"python/cv2/py.typed" ] if sys.version_info >= (3, 6) else []
         ,
         "cv2.data": [  # OPENCV_OTHER_INSTALL_PATH
             ("etc" if os.name == "nt" else "share/opencv4") + r"/haarcascades/.*\.xml"
@@ -150,8 +150,8 @@ def main():
         ],
     }
 
-    if sys.version_info >= (3, 6):
-        rearrange_cmake_output_data["cv2.typing"] = ["python/cv2" + r"/typing/.*\.py"]
+    # if sys.version_info >= (3, 6):
+    #     rearrange_cmake_output_data["cv2.typing"] = ["python/cv2" + r"/typing/.*\.py"]
 
     # Files in sourcetree outside package dir that should be copied to package.
     # Raw paths relative to sourcetree root.
@@ -190,6 +190,26 @@ def main():
             "-DBUILD_DOCS=OFF",
             "-DPYTHON3_LIMITED_API=ON",
             "-DBUILD_OPENEXR=ON",
+            # Mine
+            "-DCMAKE_CXX_STANDARD=17",
+            "-DCUDA_NVCC_FLAGS='-ccbin /home/colivier/.conda/envs/HockeyMOM/bin/g++ -Xcompiler ,\"-std=c++14\"'",
+            "-DCMAKE_C_COMPILER=gcc",
+            "-DCMAKE_CXX_COMPILER=g++",
+            "-DINSTALL_PYTHON_EXAMPLES=ON",
+            "-DINSTALL_C_EXAMPLES=OFF",
+            "-DEIGEN3_INCLUDE_PATH=/usr/include/eigen3",
+            "-DOPENCV_ENABLE_NONFREE=ON",
+            "-DWITH_CUDA=ON",
+            "-DWITH_CUDNN=ON",
+            "-DOPENCV_DNN_CUDA=ON",
+            "-DENABLE_FAST_MATH=1",
+            "-DCUDA_FAST_MATH=1",
+            "-DCUDA_ARCH_BIN=7.5",
+            "-DWITH_CUBLAS=1",
+            "-DOPENCV_DNN_CUDA=0",
+            "-DWITH_EIGEN=0",
+            "-DHAVE_opencv_python3=ON",
+            "-DBUILD_EXAMPLES=OFF",
         ]
         + (
             # CMake flags for windows/arm64 build
@@ -425,6 +445,7 @@ class RearrangeCMakeOutput:
         for package_name, relpaths_re in cls.package_paths_re.items():
             package_dest_reldir = package_name.replace(".", os.path.sep)
             for relpath_re in relpaths_re:
+                print(relpath_re)
                 found = False
                 r = re.compile(relpath_re + "$")
                 for fslash_relpath, relpath in relpaths_zip:
