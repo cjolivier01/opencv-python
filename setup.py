@@ -210,6 +210,7 @@ def main():
             "-DWITH_EIGEN=0",
             "-DHAVE_opencv_python3=ON",
             "-DBUILD_EXAMPLES=OFF",
+            "-DOPENCV_EXTRA_MODULES_PATH=/home/colivier/src/hockeymom/external/opencv-python/opencv_contrib/modules",
         ]
         + (
             # CMake flags for windows/arm64 build
