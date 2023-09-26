@@ -192,7 +192,8 @@ def main():
             "-DBUILD_OPENEXR=ON",
             # Mine
             "-DCMAKE_CXX_STANDARD=17",
-            "-DCUDA_NVCC_FLAGS='-ccbin /home/colivier/.conda/envs/HockeyMOM102/bin/g++ -Xcompiler ,\"-std=c++14\"'",
+            #"-DCUDA_NVCC_FLAGS='-ccbin /home/colivier/.conda/envs/HockeyMOM102/bin/g++ -Xcompiler ,\"-std=c++14\"'",
+            "-DCUDA_NVCC_FLAGS='-Xcompiler ,\"-std=c++14\"'",
             "-DCMAKE_C_COMPILER=gcc",
             "-DCMAKE_CXX_COMPILER=g++",
             "-DINSTALL_PYTHON_EXAMPLES=ON",
