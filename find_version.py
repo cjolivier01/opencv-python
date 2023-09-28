@@ -64,7 +64,8 @@ if __name__ == "__main__":
         opencv_version += ".{}".format(version)
     else:
         # local version identifier, not to be published on PyPI
-        version = git_hash
+        #version = git_hash
+        version = "1"
         opencv_version += ".{}".format(version)
 
     with open("cv2/version.py", "w") as f:
