@@ -229,8 +229,15 @@ def main():
             ["-DOPENCV_EXTRA_MODULES_PATH=" + os.path.abspath("opencv_contrib/modules")]
             if build_contrib
             else []
+        ) + (
+            [
+                #"-GNinja",
+                #"-J", "40",
+            ]
         )
     )
+
+    os.environ["MAKEFLAGS"] = "-j 40"
 
     if build_headless:
         # it seems that cocoa cannot be disabled so on macOS the package is not truly headless
