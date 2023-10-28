@@ -180,7 +180,7 @@ def main():
             "-DOPENCV_PYTHON3_INSTALL_PATH=python",
             # Otherwise, opencv scripts would want to install `.pyd' right into site-packages,
             # and skbuild bails out on seeing that
-            "-DINSTALL_CREATE_DISTRIB=ON",
+            #"-DINSTALL_CREATE_DISTRIB=ON",
             # See opencv/CMakeLists.txt for options and defaults
             "-DBUILD_opencv_apps=OFF",
             "-DBUILD_opencv_freetype=OFF",
@@ -194,8 +194,10 @@ def main():
             "-DCMAKE_CXX_STANDARD=17",
             #"-DCUDA_NVCC_FLAGS='-ccbin /home/colivier/.conda/envs/HockeyMOM102/bin/g++ -Xcompiler ,\"-std=c++14\"'",
             "-DCUDA_NVCC_FLAGS='-Xcompiler ,\"-std=c++14\"'",
-            "-DCMAKE_C_COMPILER=clang",
-            "-DCMAKE_CXX_COMPILER=clang++",
+            "-DCMAKE_C_COMPILER=gcc",
+            "-DCMAKE_CXX_COMPILER=g++",
+            # "-DCMAKE_C_COMPILER=clang",
+            # "-DCMAKE_CXX_COMPILER=clang++",
             # "-DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE",
             "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache",
             # "-DCMAKE_C_COMPILER=gcc",
