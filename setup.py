@@ -221,7 +221,7 @@ def main():
             "-DFFMPEG_avresample_INCLUDE=/usr/local/include",
             "-DHAVE_opencv_python3=ON",
             "-DBUILD_EXAMPLES=OFF",
-            "-DOPENCV_EXTRA_MODULES_PATH=/home/colivier/src/hockeymom/external/opencv-python/opencv_contrib/modules",
+            f"-DOPENCV_EXTRA_MODULES_PATH={os.getcwd()}/opencv_contrib/modules",
         ]
         + (
             # CMake flags for windows/arm64 build
