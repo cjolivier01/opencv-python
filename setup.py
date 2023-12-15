@@ -229,7 +229,7 @@ def main():
             f"-DCUDA_TOOLKIT_TARGET_DIR=/usr/local/cuda",
             f"-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda",
             "-DCUDNN_INCLUDE_DIR=/usr/local/cudnn/include",
-            "-DCUDNN_LIBRARY=/usr/local/cudnn/lib",
+            #"-DCUDNN_LIBRARY=/usr/local/cudnn/lib/",
         ]
         + (
             # CMake flags for windows/arm64 build
