@@ -208,7 +208,11 @@ def main():
             "-DOPENCV_ENABLE_NONFREE=ON",
             "-DWITH_CUDA=ON",
             "-DWITH_CUDNN=ON",
+
             #"-DBUILD_opencv_hdf=OFF",
+            "-DWITH_CUFFT=ON",
+            "-DWITH_NVCUVID=ON",
+            "-DWITH_NVCUVENC=ON",
             "-DOPENCV_DNN_CUDA=ON",
             "-DENABLE_FAST_MATH=1",
             "-DCUDA_FAST_MATH=1",
@@ -222,6 +226,10 @@ def main():
             "-DHAVE_opencv_python3=ON",
             "-DBUILD_EXAMPLES=OFF",
             f"-DOPENCV_EXTRA_MODULES_PATH={os.getcwd()}/opencv_contrib/modules",
+            f"-DCUDA_TOOLKIT_TARGET_DIR=/usr/local/cuda",
+            f"-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda",
+            "-DCUDNN_INCLUDE_DIR=/usr/local/cudnn/include",
+            "-DCUDNN_LIBRARY=/usr/local/cudnn/lib",
         ]
         + (
             # CMake flags for windows/arm64 build
