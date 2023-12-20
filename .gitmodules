@@ -1,6 +1,6 @@
 [submodule "opencv"]
 	path = opencv
-	url = ssh://git@github.com/cjolivier01/opencv/opencv.git
+	url = ssh://git@github.com/cjolivier01/opencv.git
 [submodule "opencv_contrib"]
 	path = opencv_contrib
 	url = https://github.com/opencv/opencv_contrib.git
