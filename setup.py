@@ -216,7 +216,7 @@ def main():
             "-DOPENCV_DNN_CUDA=ON",
             "-DENABLE_FAST_MATH=1",
             "-DCUDA_FAST_MATH=1",
-            "-DCUDA_ARCH_BIN=7.5",
+            "-DCUDA_ARCH_BIN=6.1",
             "-DWITH_CUBLAS=1",
             "-DOPENCV_DNN_CUDA=0",
             "-DWITH_EIGEN=ON",
@@ -226,10 +226,10 @@ def main():
             "-DHAVE_opencv_python3=ON",
             "-DBUILD_EXAMPLES=OFF",
             f"-DOPENCV_EXTRA_MODULES_PATH={os.getcwd()}/opencv_contrib/modules",
-            f"-DCUDA_TOOLKIT_TARGET_DIR=/usr/local/cuda",
-            f"-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda",
+            "-DCUDA_TOOLKIT_TARGET_DIR=/usr/local/cuda",
+            "-DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda",
             "-DCUDNN_INCLUDE_DIR=/usr/local/cudnn/include",
-            #"-DCUDNN_LIBRARY=/usr/local/cudnn/lib/",
+            # "-DCUDNN_LIBRARY=/usr/local/cudnn/lib/libcudnn.so",
         ]
         + (
             # CMake flags for windows/arm64 build
@@ -254,6 +254,9 @@ def main():
             ]
         )
     )
+
+    if int(os.environ.get("DEBUG", "0")) > 0:
+        cmake_args.append("-DCMAKE_BUILD_TYPE=Debug")
 
     os.environ["MAKEFLAGS"] = "-j 40"
 
