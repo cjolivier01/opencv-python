@@ -208,6 +208,8 @@ def main():
             "-DOPENCV_ENABLE_NONFREE=ON",
             "-DWITH_CUDA=ON",
             "-DWITH_CUDNN=ON",
+            "-DCUDA_ARCH_BIN=6.1",
+            "-DCUDA_ARCH_PTX=6.1",
 
             #"-DBUILD_opencv_hdf=OFF",
             "-DWITH_CUFFT=ON",
