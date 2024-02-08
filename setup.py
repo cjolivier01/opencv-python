@@ -217,6 +217,7 @@ def main():
             "-DWITH_NVCUVENC=ON",
             "-DOPENCV_DNN_CUDA=ON",
             "-DENABLE_FAST_MATH=1",
+            "-DWITH_OPENMP=1",
             "-DCUDA_FAST_MATH=1",
             "-DCUDA_ARCH_BIN=6.1",
             "-DWITH_CUBLAS=1",
