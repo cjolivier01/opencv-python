@@ -22,17 +22,11 @@ def main():
     build_java = "ON" if get_build_env_var_by_name("java") else "OFF"
     build_rolling = get_build_env_var_by_name("rolling")
 
+    # NOTE: since 2.3.0 numpy upgraded from manylinux2014 to manylinux_2_28
+    # see https://numpy.org/doc/stable/release/2.3.0-notes.html#numpy-2-3-0-release-notes
     install_requires = [
-        'numpy>=1.13.3; python_version<"3.7"',
-        'numpy>=1.17.0; python_version>="3.7"', # https://github.com/numpy/numpy/pull/13725
-        'numpy>=1.17.3; python_version>="3.8"',
-        'numpy>=1.19.3; python_version>="3.9"',
-        'numpy>=1.21.2; python_version>="3.10"',
-        'numpy>=1.19.3; python_version>="3.6" and platform_system=="Linux" and platform_machine=="aarch64"',
-        'numpy>=1.21.0; python_version<="3.9" and platform_system=="Darwin" and platform_machine=="arm64"',
-        'numpy>=1.21.4; python_version>="3.10" and platform_system=="Darwin"',
-        "numpy>=1.23.5; python_version>='3.11'",
-        "numpy>=1.26.0; python_version>='3.12'"
+        'numpy<2.0; python_version<"3.9"',
+        'numpy(>=2, <2.3.0); python_version>="3.9"',
     ]
 
     python_version = cmaker.CMaker.get_python_version()
@@ -48,7 +42,7 @@ def main():
         "\\", "/"
     )
 
-    if os.path.exists(".git"):
+    if not bool(os.environ.get('OPENCV_PYTHON_SKIP_GIT_COMMANDS', False)) and os.path.exists(".git"):
         import pip._internal.vcs.git as git
 
         g = git.Git()  # NOTE: pip API's are internal, this has to be refactored
@@ -94,6 +88,8 @@ def main():
 
     if build_rolling:
         package_name += "-rolling"
+
+    package_name = os.environ.get('OPENCV_PYTHON_PACKAGE_NAME', package_name)
 
     long_description = io.open("README.md", encoding="utf-8").read()
 
@@ -161,7 +157,7 @@ def main():
     files_outside_package_dir = {"cv2": ["LICENSE.txt", "LICENSE-3RD-PARTY.txt"]}
 
     ci_cmake_generator = (
-        ["-G", "Visual Studio 14" + (" Win64" if is64 else "")]
+        ["-G", "Visual Studio 17 2022"]
         if os.name == "nt"
         else ["-G", "Unix Makefiles"]
     )
@@ -218,10 +214,10 @@ def main():
         cmake_args.append("-DWITH_WIN32UI=OFF")
         cmake_args.append("-DWITH_QT=OFF")
         cmake_args.append("-DWITH_GTK=OFF")
-        if is_CI_build:
-            cmake_args.append(
-                "-DWITH_MSMF=OFF"
-            )  # see: https://github.com/skvark/opencv-python/issues/263
+        # see: https://github.com/skvark/opencv-python/issues/263
+        # see: https://github.com/opencv/opencv-python/issues/771
+        cmake_args.append("-DWITH_MSMF=OFF")
+        cmake_args.append("-DWITH_OBSENSOR=OFF") # Orbbec cameras backend uses MSMF API
 
     if sys.platform.startswith("linux") and not is64 and "bdist_wheel" in sys.argv:
         subprocess.check_call("patch -p0 < patches/patchOpenEXR", shell=True)
