@@ -130,4 +130,3 @@ fi
 if [[ "$want_install" -eq 1 ]]; then
   python -m pip install -U dist/*.whl
 fi
-
