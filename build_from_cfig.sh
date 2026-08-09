@@ -60,10 +60,7 @@ if [[ -z "${CMAKE_GENERATOR:-}" ]] && command -v ninja >/dev/null 2>&1; then
   export CMAKE_GENERATOR="Ninja"
 fi
 
-mapfile -t cfig_dflags < <(
-  sed -n 's/[[:space:]]*\\\\$//; s/^[[:space:]]*//; /^-D/ p' "$CFIG_PATH" \
-    | sed -E 's/^-D[[:space:]]+/-D/'
-)
+mapfile -d '' -t cfig_dflags < <("$CFIG_PATH" --print-wheel-cmake-args0)
 
 declare -A key_to_flag=()
 keys_in_order=()
